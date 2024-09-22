@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript的异步编程 - Allen-Blog</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body class="fade-out">
+    <header>
+        <h1>Allen-Blog</h1>
+        <nav>
+            <ul>
+                <li><a href="../index.html">首页</a></li>
+                <li><a href="../blog.html">博客列表</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <article>
+            <h2>JavaScript的异步编程</h2>
+            <p>在这篇文章中，我们将深入探讨JavaScript中的异步编程技术，包括回调函数、Promise和async/await。</p>
+            
+            <h3>回调函数</h3>
+            <p>回调函数是JavaScript中处理异步操作的最基本方式。它们允许我们在异步操作完成后执行代码...</p>
+
+            <h3>Promise</h3>
+            <p>Promise提供了一种更结构化的方式来处理异步操作。它们允许我们链式调用异步操作，并更好地处理错误...</p>
+
+            <h3>Async/Await</h3>
+            <p>Async/Await是建立在Promise之上的语法糖，它使异步代码看起来和同步代码类似，更易于理解和维护...</p>
+
+            <!-- 文章的完整内容 -->
+        </article>
+    </main>
+
+    <footer>
+        <section id="contact">
+            <h2>联系我</h2>
+            <div class="contact-icons">
+                <a href="#" class="contact-icon" id="emailIcon" title="邮箱">📧</a>
+                <a href="https://tanweibo.github.io/about" target="_blank" class="contact-icon" title="个人主页">💼</a>
+                <a href="https://github.com/TanWeibo" target="_blank" class="contact-icon" title="GitHub">🐙</a>
+                <a href="#" class="contact-icon" id="wechatIcon" title="微信">💬</a>
+            </div>
+            <div id="emailDetails" class="contact-details" style="display: none;">
+                <p>邮箱：atwbmail@163.com</p>
+            </div>
+            <div id="wechatDetails" class="contact-details" style="display: none;">
+                <p>微信：atwb23293019</p>
+            </div>
+        </section>
+        <p>&copy; 2024 Allen-Blog. 保留所有权利。</p>
+    </footer>
+
+    <script>
+        // 修改联系方式展开/收起功能
+        document.addEventListener('DOMContentLoaded', function() {
+            var emailIcon = document.getElementById('emailIcon');
+            var wechatIcon = document.getElementById('wechatIcon');
+            var emailDetails = document.getElementById('emailDetails');
+            var wechatDetails = document.getElementById('wechatDetails');
+
+            function toggleDetails(detailsElement) {
+                var allDetails = document.querySelectorAll('.contact-details');
+                allDetails.forEach(function(detail) {
+                    if (detail !== detailsElement) {
+                        detail.style.display = 'none';
+                        detail.classList.remove('show');
+                    }
+                });
+
+                if (detailsElement.style.display === 'none') {
+                    detailsElement.style.display = 'block';
+                    setTimeout(() => {
+                        detailsElement.classList.add('show');
+                    }, 10);
+                } else {
+                    detailsElement.classList.remove('show');
+                    setTimeout(() => {
+                        detailsElement.style.display = 'none';
+                    }, 500);
+                }
+            }
+
+            emailIcon.addEventListener('click', function(e) {
+                e.preventDefault();
+                toggleDetails(emailDetails);
+            });
+
+            wechatIcon.addEventListener('click', function(e) {
+                e.preventDefault();
+                toggleDetails(wechatDetails);
+            });
+        });
+
+        // 添加页面跳转效果
+        document.querySelectorAll('a[href$=".html"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.body.classList.add('fade-out');
+                setTimeout(() => {
+                    window.location.href = this.href;
+                }, 500);
+            });
+        });
+
+        // 页面加载时的淡入效果
+        window.addEventListener('load', () => {
+            document.body.classList.remove('fade-out');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,228 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #121212;
+    color: #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+body.fade-out {
+    opacity: 0;
+}
+
+header {
+    background-color: #1e1e1e;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+nav ul li {
+    margin: 0 10px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+section {
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: #1e1e1e;
+    border-radius: 5px;
+}
+
+footer {
+    background-color: #1e1e1e;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+}
+
+.slideshow-container {
+    max-width: 100%;
+    height: auto;
+    position: relative;
+    margin: auto;
+    overflow: hidden;
+}
+
+.mySlides img {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: cover;
+}
+
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: auto;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    background-color: rgba(30, 30, 30, 0.8);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: 50px;
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev {
+    left: 0;
+}
+
+.prev:hover, .next:hover {
+    background-color: rgba(30, 30, 30, 1);
+}
+
+/* 其他样式保持不变 */
+
+@media (max-width: 768px) {
+    main {
+        padding: 10px;
+    }
+
+    .slideshow-container {
+        height: auto;
+    }
+
+    .mySlides img {
+        max-height: 300px;
+    }
+
+    .prev, .next {
+        padding: 8px;
+        font-size: 14px;
+        height: 40px;
+        width: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul li {
+        margin: 5px 0;
+    }
+
+    .mySlides img {
+        max-height: 200px;
+    }
+
+    .prev, .next {
+        padding: 6px;
+        font-size: 12px;
+        height: 30px;
+        width: 30px;
+    }
+}
+
+/* ... 其他样式保持不变 ... */
+
+#about {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.5s ease, max-height 0.5s ease;
+    display: none; /* 初始状态为隐藏 */
+}
+
+#about.show {
+    opacity: 1;
+    max-height: 2000px; /* 设置一个足够大的值 */
+    display: block;
+}
+
+/* ... 其他样式保持不变 ... */
+
+/* 联系方式样式 */
+#contact {
+    font-size: 0.9em;
+    padding: 10px;
+}
+
+.contact-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 10px;
+}
+
+.contact-icon {
+    font-size: 24px;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.contact-icon:hover {
+    transform: scale(1.2);
+}
+
+.contact-icon.wechat {
+    background-image: url('path_to_your_wechat_icon.png');
+    background-size: cover;
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+}
+
+.contact-details {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.5s ease, max-height 0.5s ease;
+}
+
+.contact-details.show {
+    opacity: 1;
+    max-height: 200px;
+}

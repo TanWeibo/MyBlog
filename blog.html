@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allen-Blog - 博客文章</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Allen-Blog</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">首页</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="blog">
+            <h2>博客文章</h2>
+            <article>
+                <h3>JavaScript的异步编程</h3>
+                <p>在这篇文章中，我们将探讨JavaScript中的异步编程技术，包括回调函数、Promise和async/await...</p>
+                <a href="blogs/javascript-async-programming.html" class="read-more">阅读更多</a>
+            </article>
+            <article>
+                <h3>React Hooks深入浅出</h3>
+                <p>React Hooks为函数组件带来了状态管理的能力。本文将详细介绍useState和useEffect的使用方法...</p>
+                <a href="blogs/react-hooks-explained.html" class="read-more">阅读更多</a>
+            </article>
+            <!-- 可以添加更多文章 -->
+        </section>
+    </main>
+
+    <footer>
+        <section id="contact">
+            <h2>联系我</h2>
+            <div class="contact-icons">
+                <a href="#" class="contact-icon" id="emailIcon" title="邮箱">📧</a>
+                <a href="https://tanweibo.github.io/about" target="_blank" class="contact-icon" title="个人主页">💼</a>
+                <a href="https://github.com/TanWeibo" target="_blank" class="contact-icon" title="GitHub">🐙</a>
+                <a href="#" class="contact-icon" id="wechatIcon" title="微信">💬</a>
+            </div>
+            <div id="emailDetails" class="contact-details" style="display: none;">
+                <p>邮箱：atwbmail@163.com</p>
+            </div>
+            <div id="wechatDetails" class="contact-details" style="display: none;">
+                <p>微信：atwb23293019</p>
+            </div>
+        </section>
+        <p>&copy; 2024 Allen-Blog. 保留所有权利。</p>
+    </footer>
+
+    <script>
+        // 修改联系方式展开/收起功能
+        document.addEventListener('DOMContentLoaded', function() {
+            var emailIcon = document.getElementById('emailIcon');
+            var wechatIcon = document.getElementById('wechatIcon');
+            var emailDetails = document.getElementById('emailDetails');
+            var wechatDetails = document.getElementById('wechatDetails');
+
+            function toggleDetails(detailsElement) {
+                var allDetails = document.querySelectorAll('.contact-details');
+                allDetails.forEach(function(detail) {
+                    if (detail !== detailsElement) {
+                        detail.style.display = 'none';
+                        detail.classList.remove('show');
+                    }
+                });
+
+                if (detailsElement.style.display === 'none') {
+                    detailsElement.style.display = 'block';
+                    setTimeout(() => {
+                        detailsElement.classList.add('show');
+                    }, 10);
+                } else {
+                    detailsElement.classList.remove('show');
+                    setTimeout(() => {
+                        detailsElement.style.display = 'none';
+                    }, 500);
+                }
+            }
+
+            emailIcon.addEventListener('click', function(e) {
+                e.preventDefault();
+                toggleDetails(emailDetails);
+            });
+
+            wechatIcon.addEventListener('click', function(e) {
+                e.preventDefault();
+                toggleDetails(wechatDetails);
+            });
+        });
+
+        // 添加页面跳转效果
+        document.querySelectorAll('a[href^="blogs/"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.body.classList.add('fade-out');
+                setTimeout(() => {
+                    window.location.href = this.href;
+                }, 500);
+            });
+        });
+
+        // 为返回首页的链接添加淡出效果
+        document.querySelector('a[href="index.html"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.body.classList.add('fade-out');
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 500);
+        });
+
+        // 页面加载时的淡入效果
+        window.addEventListener('load', () => {
+            document.body.classList.remove('fade-out');
+        });
+    </script>
+</body>
+</html>

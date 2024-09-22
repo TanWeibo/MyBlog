@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allen-Blog</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .mySlides {
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .mySlides.active {
+            opacity: 1;
+            z-index: 1;
+        }
+        .slideshow-container {
+            position: relative;
+            height: 400px; /* 根据您的图片尺寸调整 */
+        }
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            background-color: rgba(0,0,0,0.8);
+        }
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+        .prev {
+            left: 0;
+        }
+        .prev.hidden, .next.hidden {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>欢迎来到Allen-Blog</h1>
+        <nav>
+            <ul>
+                <li><a href="#" id="aboutLink">关于我</a></li>
+                <li><a href="blog.html">博客文章</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home">
+            <h2>欢迎来到我的个人空间</h2>
+            <div class="slideshow-container">
+                <div class="mySlides fade">
+                    <img src="imgs/p1.png" alt="Allen的照片1">
+                </div>
+                <div class="mySlides fade">
+                    <img src="imgs/p2.png" alt="Allen的照片2">
+                </div>
+                <div class="mySlides fade">
+                    <img src="imgs/p3.png" alt="Allen的照片3">
+                </div>
+                <div class="mySlides fade">
+                    <img src="imgs/p4.png" alt="Allen的照片4">
+                </div>
+
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            </div>
+            <br>
+            <div style="text-align:center">
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+                <span class="dot" onclick="currentSlide(4)"></span>
+            </div>
+        </section>
+
+        <section id="about" style="display: none;">
+            <h2>关于我</h2>
+            <div class="about-content">
+                <h3>Allen</h3>
+                <p>大家好，我是Allen，一名热爱技术和创新的软件工程师。</p>
+                <h4>专业技能：</h4>
+                <ul>
+                    <li>Web开发 (HTML, CSS, JavaScript)</li>
+                    <li>后端开发 (Python, Node.js)</li>
+                    <li>数据库管理 (MySQL, MongoDB)</li>
+                    <li>云计算 (AWS, Azure)</li>
+                </ul>
+                <h4>兴趣爱好：</h4>
+                <p>除了编程，我还喜欢阅读科技书籍、旅行和摄影。我相信终身学习的重要性，经常参加各种技术会议和工作坊。</p>
+                <h4>职业目标：</h4>
+                <p>我的目标是成为一名全栈开发工程师，并为开源社区做出贡献。我希望通过我的技术能力，开发出能够改善人们生活的应用和服务。</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <section id="contact">
+            <h2>联系我</h2>
+            <div class="contact-icons">
+                <a href="#" class="contact-icon" id="emailIcon" title="邮箱">📧</a>
+                <a href="https://tanweibo.github.io/about" target="_blank" class="contact-icon" title="个人主页">💼</a>
+                <a href="https://github.com/TanWeibo" target="_blank" class="contact-icon" title="GitHub">🐙</a>
+                <a href="#" class="contact-icon" id="wechatIcon" title="微信">💬</a>
+            </div>
+            <div id="emailDetails" class="contact-details" style="display: none;">
+                <p>邮箱：atwbmail@163.com</p>
+            </div>
+            <div id="wechatDetails" class="contact-details" style="display: none;">
+                <p>微信：atwb23293019</p>
+            </div>
+        </section>
+        <p>&copy; 2024 Allen-Blog. 保留所有权利。</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var aboutLink = document.getElementById('aboutLink');
+            var aboutSection = document.getElementById('about');
+            
+            aboutLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (aboutSection.classList.contains('show')) {
+                    aboutSection.classList.remove('show');
+                    setTimeout(() => {
+                        aboutSection.style.display = 'none';
+                    }, 500); // 与CSS过渡时间相匹配
+                } else {
+                    aboutSection.style.display = 'block';
+                    setTimeout(() => {
+                        aboutSection.classList.add('show');
+                    }, 10); // 小延迟以确保display更改已应用
+                }
+            });
+        });
+
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let slides = document.getElementsByClassName("mySlides");
+            let dots = document.getElementsByClassName("dot");
+            let prev = document.querySelector(".prev");
+            let next = document.querySelector(".next");
+            
+            if (n > slides.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = slides.length}
+            
+            // 淡出所有幻灯片
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].classList.remove('active');
+            }
+            
+            // 移除所有圆点的active类
+            for (let i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            
+            // 淡入新的幻灯片
+            setTimeout(() => {
+                slides[slideIndex-1].classList.add('active');
+                dots[slideIndex-1].className += " active";
+            }, 50);
+
+            // 处理导航按钮的显示
+            prev.classList.toggle('hidden', slideIndex === 1);
+            next.classList.toggle('hidden', slideIndex === slides.length);
+        }
+
+        // 自动滚动
+        setInterval(function() {
+            plusSlides(1);
+        }, 5000); // 每5秒切换一次
+
+        // 修改联系方式展开/收起功能
+        document.addEventListener('DOMContentLoaded', function() {
+            var emailIcon = document.getElementById('emailIcon');
+            var wechatIcon = document.getElementById('wechatIcon');
+            var emailDetails = document.getElementById('emailDetails');
+            var wechatDetails = document.getElementById('wechatDetails');
+
+            function toggleDetails(detailsElement) {
+                var allDetails = document.querySelectorAll('.contact-details');
+                allDetails.forEach(function(detail) {
+                    if (detail !== detailsElement) {
+                        detail.style.display = 'none';
+                        detail.classList.remove('show');
+                    }
+                });
+
+                if (detailsElement.style.display === 'none') {
+                    detailsElement.style.display = 'block';
+                    setTimeout(() => {
+                        detailsElement.classList.add('show');
+                    }, 10);
+                } else {
+                    detailsElement.classList.remove('show');
+                    setTimeout(() => {
+                        detailsElement.style.display = 'none';
+                    }, 500);
+                }
+            }
+
+            emailIcon.addEventListener('click', function(e) {
+                e.preventDefault();
+                toggleDetails(emailDetails);
+            });
+
+            wechatIcon.addEventListener('click', function(e) {
+                e.preventDefault();
+                toggleDetails(wechatDetails);
+            });
+        });
+
+        // 添加页面跳转效果
+        document.querySelector('a[href="blog.html"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.body.classList.add('fade-out');
+            setTimeout(function() {
+                window.location.href = 'blog.html';
+            }, 500);
+        });
+    </script>
+</body>
+</html>

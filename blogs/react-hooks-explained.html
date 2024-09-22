@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Hooks深入浅出 - Allen-Blog</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body class="fade-out">
+    <header>
+        <h1>Allen-Blog</h1>
+        <nav>
+            <ul>
+                <li><a href="../index.html">首页</a></li>
+                <li><a href="../blog.html">博客列表</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <article>
+            <h2>React Hooks深入浅出</h2>
+            <p>React Hooks为函数组件带来了状态管理的能力。本文将详细介绍useState和useEffect的使用方法，以及它们如何改变我们编写React组件的方式。</p>
+            
+            <h3>useState Hook</h3>
+            <p>useState是React提供的一个Hook，允许我们在函数组件中添加状态。它返回一个状态值和一个更新这个状态的函数。</p>
+            <pre><code>
+const [count, setCount] = useState(0);
+            </code></pre>
+            <p>在这个例子中，count是状态值，setCount是用来更新count的函数。</p>
+
+            <h3>useEffect Hook</h3>
+            <p>useEffect允许我们在函数组件中执行副作用操作。它可以看作是componentDidMount、componentDidUpdate和componentWillUnmount这三个生命周期方法的组合。</p>
+            <pre><code>
+useEffect(() => {
+    document.title = `You clicked ${count} times`;
+}, [count]); // 只有当count改变时才会执行
+            </code></pre>
+            <p>这个useEffect会在组件挂载后和count状态更新后执行，更新文档的标题。</p>
+
+            <h3>自定义Hooks</h3>
+            <p>Hooks的强大之处在于我们可以创建自定义Hooks，将组件逻辑提取到可重用的函数中。</p>
+            <pre><code>
+function useWindowWidth() {
+    const [width, setWidth] = useState(window.innerWidth);
+    useEffect(() => {
+        const handleResize = () => setWidth(window.innerWidth);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+    return width;
+}
+            </code></pre>
+            <p>这个自定义Hook可以在任何组件中使用，以获取并响应窗口宽度的变化。</p>
+
+            <h3>结论</h3>
+            <p>React Hooks提供了一种更简洁、更直观的方式来管理组件状态和副作用。通过使用Hooks，我们可以写出更清晰、更易于理解和维护的React代码。</p>
+        </article>
+    </main>
+
+    <footer>
+        <section id="contact">
+            <h2>联系我</h2>
+            <div class="contact-icons">
+                <a href="#" class="contact-icon" id="emailIcon" title="邮箱">📧</a>
+                <a href="https://tanweibo.github.io/about" target="_blank" class="contact-icon" title="个人主页">💼</a>
+                <a href="https://github.com/TanWeibo" target="_blank" class="contact-icon" title="GitHub">🐙</a>
+                <a href="#" class="contact-icon" id="wechatIcon" title="微信">💬</a>
+            </div>
+            <div id="emailDetails" class="contact-details" style="display: none;">
+                <p>邮箱：atwbmail@163.com</p>
+            </div>
+            <div id="wechatDetails" class="contact-details" style="display: none;">
+                <p>微信：atwb23293019</p>
+            </div>
+        </section>
+        <p>&copy; 2024 Allen-Blog. 保留所有权利。</p>
+    </footer>
+
+    <script>
+        // 修改联系方式展开/收起功能
+        document.addEventListener('DOMContentLoaded', function() {
+            var emailIcon = document.getElementById('emailIcon');
+            var wechatIcon = document.getElementById('wechatIcon');
+            var emailDetails = document.getElementById('emailDetails');
+            var wechatDetails = document.getElementById('wechatDetails');
+
+            function toggleDetails(detailsElement) {
+                var allDetails = document.querySelectorAll('.contact-details');
+                allDetails.forEach(function(detail) {
+                    if (detail !== detailsElement) {
+                        detail.style.display = 'none';
+                        detail.classList.remove('show');
+                    }
+                });
+
+                if (detailsElement.style.display === 'none') {
+                    detailsElement.style.display = 'block';
+                    setTimeout(() => {
+                        detailsElement.classList.add('show');
+                    }, 10);
+                } else {
+                    detailsElement.classList.remove('show');
+                    setTimeout(() => {
+                        detailsElement.style.display = 'none';
+                    }, 500);
+                }
+            }
+
+            emailIcon.addEventListener('click', function(e) {
+                e.preventDefault();
+                toggleDetails(emailDetails);
+            });
+
+            wechatIcon.addEventListener('click', function(e) {
+                e.preventDefault();
+                toggleDetails(wechatDetails);
+            });
+        });
+
+        // 添加页面跳转效果
+        document.querySelectorAll('a[href$=".html"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.body.classList.add('fade-out');
+                setTimeout(() => {
+                    window.location.href = this.href;
+                }, 500);
+            });
+        });
+
+        // 页面加载时的淡入效果
+        window.addEventListener('load', () => {
+            document.body.classList.remove('fade-out');
+        });
+    </script>
+</body>
+</html>
